@@ -5,6 +5,7 @@ import org.mari.springbootsmsapi.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -24,4 +25,20 @@ public class ProductServiceImpl implements ProductService{
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
+
+    @Override
+    public Optional<Product> findProductById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public Product updateProductById(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
+
 }

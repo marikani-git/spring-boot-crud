@@ -26,4 +26,19 @@ public class ProductController {
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) throws Exception{
+        Product product  = productService.findProductById(id).orElseThrow(() -> new Exception("Product not found for " + id));
+        product.setName(productDetails.getName());
+        product.setDescription(productDetails.getDescription());
+        return ResponseEntity.ok(productService.updateProductById(product));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception{
+        Product product  = productService.findProductById(id).orElseThrow(() -> new Exception("Product not found for " + id));
+        productService.deleteProduct(product);
+        return ResponseEntity.ok("Deleted product ID: " + id);
+    }
 }
